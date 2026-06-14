@@ -1,32 +1,61 @@
-﻿using System;
-using System.Data.SQLite;
+﻿using DB;
 
-namespace SQLiteDemo
+Database.Initialize();
+
+var service = new ItemService();
+
+while (true)
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello Sqlite!");
-            CreateConnection();
-        }
+    Console.WriteLine("\n=== MENU ===");
+    Console.WriteLine("1 - Add item");
+    Console.WriteLine("2 - List items");
+    Console.WriteLine("3 - Delete item");
+    Console.WriteLine("0 - Exit");
 
-        static SQLiteConnection CreateConnection()
-        {
-            SQLiteConnection sqlite_conn;
-            // Create a new database connection:
-            sqlite_conn = new SQLiteConnection("Data Source=database.db;Version=3;New=True;Compress=True;");
-            // Open the connection:
-            try
+    Console.Write("Choice: ");
+    string? choice = Console.ReadLine();
+
+    switch (choice)
+    {
+        case "1":
+            Console.Write("Item name: ");
+            string? name = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(name))
             {
-                sqlite_conn.Open();
-                Console.WriteLine("Connection worked!");
+                service.Add(name);
+                Console.WriteLine("Added.");
             }
-            catch (Exception ex)
+            break;
+
+        case "2":
+            var items = service.GetAll();
+
+            Console.WriteLine("\nItems:");
+
+            foreach (var item in items)
             {
-                Console.WriteLine("Connection didn't work!");
+                Console.WriteLine($"{item.Id}: {item.Name}");
             }
-            return sqlite_conn;
-        }
+
+            break;
+
+        case "3":
+            Console.Write("ID to delete: ");
+
+            if (int.TryParse(Console.ReadLine(), out int id))
+            {
+                service.Delete(id);
+                Console.WriteLine("Deleted.");
+            }
+
+            break;
+
+        case "0":
+            return;
+
+        default:
+            Console.WriteLine("Invalid option.");
+            break;
     }
 }
