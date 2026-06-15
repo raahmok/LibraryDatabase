@@ -1,0 +1,32 @@
+-- database: ./database.db
+
+
+
+
+SELECT * FROM Users;
+
+DROP TABLE Users;
+
+
+INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
+VALUES (123, "karel", "karel@seznam.cz", "heslo", 1, 0, 0);
+INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
+VALUES (345, "pepa", "pepa_novak@gmail.com", "heslo", 0, 0, 0);
+INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
+VALUES (456, "petr", "petr.sasek.cz", "heslo", 0, 0, 0);
+
+DELETE from users;
+
+CREATE TABLE IF NOT EXISTS Users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    usr_id INTEGER NOT NULL,
+    username TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
+    admin INTEGER,
+    borrowed_books INTEGER,
+    penalty INTEGER
+);
+
+
+select username, password from users;

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "R4rArn/bSOo=",
+  "dgSpecHash": "YfjlmXenkKw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+  "projectFilePath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tylus\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\tylus\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
@@ -28,10 +28,10 @@
     {
       "code": "NU1902",
       "level": "Warning",
-      "message": "Balíček „System.Data.SqlClient“ 4.8.1 má známé střední ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-8g2p-5pqh-5jmc",
-      "projectPath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "message": "Package 'System.Data.SqlClient' 4.8.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g2p-5pqh-5jmc",
+      "projectPath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "filePath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "libraryId": "System.Data.SqlClient",
       "targetGraphs": [
         "net10.0"
@@ -40,10 +40,10 @@
     {
       "code": "NU1903",
       "level": "Warning",
-      "message": "Balíček „System.Data.SqlClient“ 4.8.1 má známé vysoké ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
-      "projectPath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "message": "Package 'System.Data.SqlClient' 4.8.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
+      "projectPath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "filePath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "libraryId": "System.Data.SqlClient",
       "targetGraphs": [
         "net10.0"
@@ -52,10 +52,10 @@
     {
       "code": "NU1904",
       "level": "Warning",
-      "message": "Balíček „System.Drawing.Common“ 4.7.0 má známé kritické ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-rxg9-xrhp-64gj",
-      "projectPath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "message": "Package 'System.Drawing.Common' 4.7.0 has a known critical severity vulnerability, https://github.com/advisories/GHSA-rxg9-xrhp-64gj",
+      "projectPath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "filePath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "libraryId": "System.Drawing.Common",
       "targetGraphs": [
         "net10.0"

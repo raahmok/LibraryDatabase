@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj": {}
+    "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj": {
+    "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+        "projectUniqueName": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
         "projectName": "LibraryDatabase",
-        "projectPath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+        "projectPath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
         "packagesPath": "C:\\Users\\tylus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\obj\\",
+        "outputPath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

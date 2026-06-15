@@ -919,11 +919,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "projectUniqueName": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "projectName": "LibraryDatabase",
-      "projectPath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
+      "projectPath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\LibraryDatabase.csproj",
       "packagesPath": "C:\\Users\\tylus\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tylus\\Documents\\Coding\\SSPS\\LibraryDatabase\\obj\\",
+      "outputPath": "C:\\Users\\tylus\\Documents\\.Coding\\SSPS\\LibraryDatabase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1268,7 +1268,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček „System.Data.SqlClient“ 4.8.1 má známé střední ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-8g2p-5pqh-5jmc",
+      "message": "Package 'System.Data.SqlClient' 4.8.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g2p-5pqh-5jmc",
       "libraryId": "System.Data.SqlClient",
       "targetGraphs": [
         "net10.0"
@@ -1278,7 +1278,7 @@
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček „System.Data.SqlClient“ 4.8.1 má známé vysoké ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
+      "message": "Package 'System.Data.SqlClient' 4.8.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
       "libraryId": "System.Data.SqlClient",
       "targetGraphs": [
         "net10.0"
@@ -1288,7 +1288,7 @@
       "code": "NU1904",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček „System.Drawing.Common“ 4.7.0 má známé kritické ohrožení zabezpečení závažnosti, https://github.com/advisories/GHSA-rxg9-xrhp-64gj",
+      "message": "Package 'System.Drawing.Common' 4.7.0 has a known critical severity vulnerability, https://github.com/advisories/GHSA-rxg9-xrhp-64gj",
       "libraryId": "System.Drawing.Common",
       "targetGraphs": [
         "net10.0"

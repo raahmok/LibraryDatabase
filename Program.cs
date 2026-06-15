@@ -8,6 +8,7 @@ var random = new Random();
 var menu  = new Menu();
 
 
+bool running = true;
 var screen_num = SCREEN.LOGIN;
 
 
@@ -16,8 +17,9 @@ Console.WriteLine("|##### HONZIKOVA | KNIHOVNA #####|");
 Console.WriteLine("|################################|");
 
 
-while (true)
+while (running)
 {
+    Console.WriteLine("---------------------------------------");
     switch(screen_num)
     {
     case SCREEN.LOGIN:
@@ -28,20 +30,155 @@ while (true)
         Console.WriteLine("0 - Odejit");
 
         switch(Console.ReadLine())
-            {
-            case "2":
-                addUser();
-                break;
-
-            case "3":
+        {
+        case "1":
+            login();
+            break;
+        case "2":
+            addUser();
+            break;
+        case "3":
             listUsers();
             break;
-            }
+        default:
+            running = false;
+            break;
+        }
         break;
     case SCREEN.READ_MENU:
+        Console.WriteLine($"Prihlasen - {current_user.username}#{current_user.usr_id}");
+        Console.WriteLine(current_user.username);
+        Console.WriteLine("1 - Prohlizet katalog");
+        Console.WriteLine("2 - Vypujcit knihu");
+        Console.WriteLine("3 - Vratit knihu");
+        Console.WriteLine("5 - Odhlasit");
+        Console.WriteLine("6 - Smazat ucet");
+        Console.WriteLine("0 - Odejit");
+
+        switch(Console.ReadLine())
+        {
+        case "1":
+            break;
+        case "2":
+            break;
+        case "3":
+            break;
+        case "4":
+            break;
+        case "5":
+            break;
+        case "6":
+            break;
+        default:
+            running = false;
+            break;
+        }
+
         break;
     case SCREEN.ADMIN_MENU:
+        Console.WriteLine($"Prihlasen - {current_user.username}#{current_user.usr_id} - (admin)");
+
+        Console.WriteLine("1 - Prohlizet katalog");
+        Console.WriteLine("2 - Vypujcit knihu");
+        Console.WriteLine("3 - Vratit knihu");
+        Console.WriteLine("5 - Odhlasit");
+        Console.WriteLine("6 - Smazat ucet");
+        Console.WriteLine("0 - Odejit");
+
+        switch(Console.ReadLine())
+        {
+        case "1":
+            break;
+        case "2":
+            break;
+        case "3":
+            break;
+        case "4":
+            break;
+        case "5":
+            break;
+        case "6":
+            break;
+        default:
+            running = false;
+            break;
+        }
+
         break;
+    }
+}
+
+void login()
+{
+    Console.Write("Enter username: ");
+    var login_username = Console.ReadLine();
+    
+    Console.Write("Enter password: ");
+    var login_password = Console.ReadLine();
+
+    
+    using var connection = Database.GetConnection();
+    connection.Open();
+
+    var command = connection.CreateCommand();
+    command.CommandText =
+    @"
+        SELECT username FROM Users;
+    ";
+
+    using var reader = command.ExecuteReader();
+
+    var db_username = "";
+
+    while(reader.Read())
+    {
+        if(login_username == reader.GetString(0))
+        {
+            db_username = reader.GetString(0);
+            break;
+        }
+    }
+
+    command = connection.CreateCommand();
+    command.CommandText =
+    @"
+        SELECT password FROM Users WHERE username = $username;
+    ";
+    command.Parameters.AddWithValue("$username", db_username);
+
+    using var reader2 = command.ExecuteReader();
+    reader.Read();
+    if(reader.GetString(0) == login_password)
+    {
+        //succesful login
+
+        command = connection.CreateCommand();
+        command.CommandText =
+        @"
+            SELECT username FROM Users;
+        ";
+        
+        using var reader3 = command.ExecuteReader();
+        reader.Read();
+        current_user = new User
+        {
+            id = reader.GetInt32(0),
+            usr_id = reader.GetInt32(1),
+            username = reader.GetString(2),
+            email = reader.GetString(3),
+            password = reader.GetString(4),
+            admin = reader.GetInt32(5)
+        };
+    }
+
+
+    if(current_user.admin == 1)
+    {
+        screen_num = SCREEN.ADMIN_MENU;
+    }
+    else
+    {
+        screen_num = SCREEN.ADMIN_MENU;
     }
 }
 

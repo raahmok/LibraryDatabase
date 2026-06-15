@@ -1,3 +1,4 @@
+using System.Data.SqlClient;
 using System.Data.SQLite;
 
 namespace DB;
@@ -16,7 +17,7 @@ public static class Database
         using var connection = GetConnection();
         connection.Open();
 
-        string sql = @"
+        string sql2 = @"
             CREATE TABLE IF NOT EXISTS Books (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 isbn TEXT NOT NULL,
@@ -30,11 +31,12 @@ public static class Database
 
             CREATE TABLE IF NOT EXISTS Users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                usr_id INTEGER UNIQUE,
-                username TEXT NOT NULL,
-                email TEXT NOT NULL,
+                usr_id INTEGER UNIQUE NOT NULL,
+                username TEXT NOT NULL UNIQUE,
+                email TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL,
                 admin INTEGER,
+                borrowed INTEGER,
                 penalty INTEGER
             );
 
@@ -51,6 +53,8 @@ public static class Database
         ";
 
         var command = connection.CreateCommand();
+        var sql_path = "init.sql";
+        var sql = File.ReadAllText(sql_path);
         command.CommandText = sql;
         command.ExecuteNonQuery();
     }
