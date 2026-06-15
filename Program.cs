@@ -66,8 +66,11 @@ while (running)
         case "4":
             break;
         case "5":
+            current_user = new User();
+            screen_num = SCREEN.LOGIN;
             break;
         case "6":
+            deleteUser();
             break;
         default:
             running = false;
@@ -98,8 +101,11 @@ while (running)
         case "4":
             break;
         case "5":
+            current_user = new User();
+            screen_num = SCREEN.LOGIN;
             break;
         case "6":
+            deleteUser();
             break;
         default:
             running = false;
@@ -139,21 +145,29 @@ void login()
            reader.GetString(4) == login_password)
         {
             //succesful login
+            current_user.id = reader.GetInt32(0);
             current_user.usr_id = reader.GetInt32(1);
             current_user.username = reader.GetString(2);
+            current_user.email = reader.GetString(3);
+            current_user.password = reader.GetString(4);
             current_user.admin = reader.GetInt32(5);
             current_user.borrowed = reader.GetInt32(6);
             current_user.penalty = reader.GetInt32(7);
-        }
-    }
+            if(current_user.admin == 1)
+            {
+                screen_num = SCREEN.ADMIN_MENU;
+            }
+            else
+            {
+                screen_num = SCREEN.READ_MENU;
+            }
 
-    if(current_user.admin == 1)
-    {
-        screen_num = SCREEN.ADMIN_MENU;
-    }
-    else
-    {
-        screen_num = SCREEN.ADMIN_MENU;
+            break;
+        }
+        else
+        {
+            Console.WriteLine("Blby prihlasovaci udaje!");
+        }
     }
 }
 
@@ -186,7 +200,19 @@ void addUser()
         user.admin = 0;
     }
 
+    user.usr_id = random.Next(100, 1000);
+
     usermanager.Add(user);
+}
+
+void deleteUser()
+{
+    Console.WriteLine("Opravdu skutecne si prejete trvale odstranit svuj ucet? (y/n)");
+    if(Console.ReadLine() == "y")
+    {
+        usermanager.Delete(current_user);
+        screen_num = SCREEN.LOGIN;
+    }
 }
 
 void listUsers()

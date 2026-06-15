@@ -13,8 +13,8 @@ public class UserManager
         var command = connection.CreateCommand();
         command.CommandText =
         @"
-            INSERT INTO Users (usr_id, username, email, password, admin, penalty)
-            VALUES ($usr_id, $username, $email, $password, $admin, $penalty);
+            INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
+            VALUES ($usr_id, $username, $email, $password, $admin, $borrowed, $penalty);
         ";
 
         command.Parameters.AddWithValue("$usr_id", user.usr_id);
@@ -65,7 +65,9 @@ public class UserManager
         var command = connection.CreateCommand();
         command.CommandText =
         @"
-            DELETE FROM USERS
+            DELETE FROM Users WHERE id = $id;
         ";
+        command.Parameters.AddWithValue("$id", user.id);
+        command.ExecuteNonQuery();
     }
 }
