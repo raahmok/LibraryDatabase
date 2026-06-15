@@ -5,10 +5,10 @@ knihovna visco
 TODO:
     -dodelat readme
     -input handling proti errorum
-    -prilaseni a ucty
+    -### prilaseni a ucty
     -book a book manager setup
     -vyhledavani knih
-    -dataset knizek
+    -### dataset knizek
     -pujcovani knih
     -mozna tui https://github.com/gui-cs/Terminal.Gui  (eyecandy za bodiky :P)
     -menu manager

@@ -1,66 +1,10 @@
--- database: ./database.db
 
+INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty) VALUES
+(123, "karel", "karel@seznam.cz", "heslo", 1, 0, 0),
+(345, "pepa", "pepa_novak@gmail.com", "heslo", 0, 0, 0),
+(456, "petr", "petr.sasek.cz", "heslo", 0, 0, 0);
 
-
-
-SELECT * FROM Users;
-SELECT * from Users where username = "karel";
-
-DROP TABLE Users;
-
-
-INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
-VALUES (123, "karel", "karel@seznam.cz", "heslo", 1, 0, 0);
-INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
-VALUES (345, "pepa", "pepa_novak@gmail.com", "heslo", 0, 0, 0);
-INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
-VALUES (456, "petr", "petr.sasek.cz", "heslo", 0, 0, 0);
-
-DELETE from Users WHERE id = 8;
-
-CREATE TABLE IF NOT EXISTS Users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    email TEXT NOT NULL,
-    password TEXT NOT NULL,
-    admin INTEGER,
-    borrowed_books INTEGER,
-    penalty INTEGER
-);
-
-
-select username, password from users;
-
-DELETE FROM Books;
-
-
-INSERT INTO Books (isbn, title, author, year, genre, copies, available) VALUES
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "", "", 2015, "", 100, 100),
-  (9781781100486, "Harry Potter and the Sorcerer's Stone", "J. K. Rowling", 2015, "fantasy", 100, 100);
-
-DROP TABLE Books;
-
-CREATE TABLE Books (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    isbn VARCHAR(13) NOT NULL UNIQUE,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    year INTEGER NOT NULL,
-    genre VARCHAR(100) NOT NULL,
-    copies INTEGER NOT NULL CHECK (copies BETWEEN 1 AND 100),
-    available INTEGER NOT NULL CHECK (available >= 0 AND available <= copies)
-);
-
-MILUJU CHAT GPT;
-
+    
 INSERT INTO Books (id, isbn, title, author, year, genre, copies, available) VALUES
 (1, '9780743273565', 'The Great Gatsby', 'F. Scott Fitzgerald', 1925, 'Classic', 85, 42),
 (2, '9780061120084', 'To Kill a Mockingbird', 'Harper Lee', 1960, 'Classic', 91, 28),
@@ -94,6 +38,3 @@ INSERT INTO Books (id, isbn, title, author, year, genre, copies, available) VALU
 (28, '9780062315007', 'Sapiens', 'Yuval Noah Harari', 2011, 'History', 88, 41),
 (29, '9780804139021', 'Educated', 'Tara Westover', 2018, 'Memoir', 47, 19),
 (30, '9780385545969', 'Project Hail Mary', 'Andy Weir', 2021, 'Science Fiction', 79, 28);
-
-
-DROP TABLE Borrowed;

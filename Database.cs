@@ -41,14 +41,14 @@ public static class Database
             );
 
             CREATE TABLE IF NOT EXISTS Borrowed (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            book_id INTEGER,
-            member_id INTEGER,
-            borrow_date DATE,
-            return_date DATE,
-            return_deadline DATE,
-            FOREIGN KEY (book_id) REFERENCES Books (id),
-            FOREIGN KEY (member_id) REFERENCES Users (id)
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                book_id INTEGER,
+                member_id INTEGER,
+                borrow_date DATE,
+                return_date DATE,
+                return_deadline DATE,
+                FOREIGN KEY (book_id) REFERENCES Books (id),
+                FOREIGN KEY (member_id) REFERENCES Users (id)
             )
         ";
 

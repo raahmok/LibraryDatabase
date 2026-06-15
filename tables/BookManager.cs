@@ -3,9 +3,9 @@ using DB;
 
 namespace DB;
 
-public class BookManager
+public class UserManager
 {
-    public void Add(Book book)
+    public void Add(User user)
     {
         using var connection = Database.GetConnection();
         connection.Open();
@@ -13,47 +13,61 @@ public class BookManager
         var command = connection.CreateCommand();
         command.CommandText =
         @"
-            INSERT INTO Books (isbn, title, author, year, genre, copies, available)
-            VALUES ($isbn, $title, $author, $year, $genre, $copies, $available);
+            INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
+            VALUES ($usr_id, $username, $email, $password, $admin, $borrowed, $penalty);
         ";
 
-        command.Parameters.AddWithValue("$isbn", book.isbn);
-        command.Parameters.AddWithValue("$title", book.title);
-        command.Parameters.AddWithValue("$author", book.author);
-        command.Parameters.AddWithValue("$year", book.year);
-        command.Parameters.AddWithValue("$genre", book.genre);
-        command.Parameters.AddWithValue("$copies", book.copies);
-        command.Parameters.AddWithValue("$available", book.available);
+        command.Parameters.AddWithValue("$usr_id", user.usr_id);
+        command.Parameters.AddWithValue("$username", user.username);
+        command.Parameters.AddWithValue("$email", user.email);
+        command.Parameters.AddWithValue("$password", user.password);
+        command.Parameters.AddWithValue("$admin", user.admin);
+        command.Parameters.AddWithValue("$borrowed", user.borrowed);
+        command.Parameters.AddWithValue("$penalty", user.penalty);
         command.ExecuteNonQuery();
     }
 
-    public List<Book> GetAll()
+    public List<User> GetAll()
     {
-        var book_list = new List<Book>();
+        var usr_list = new List<User>();
 
         using var connection = Database.GetConnection();
         connection.Open();
 
         var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM Books";
+        command.CommandText = "SELECT * FROM Users";
 
         using var reader = command.ExecuteReader();
 
         while (reader.Read())
         {
-            book_list.Add(new Book
+            usr_list.Add(new User
             {
                 id = reader.GetInt32(0),
-                isbn = reader.GetString(1),
-                title = reader.GetString(2),
-                author = reader.GetString(3),
-                year = reader.GetInt32(4),
-                genre = reader.GetString(5),
-                copies = reader.GetInt32(6),
-                available = reader.GetInt32(7)
+                usr_id = reader.GetInt32(1),
+                username = reader.GetString(2),
+                email = reader.GetString(3),
+                password = reader.GetString(4),
+                admin = reader.GetInt32(5),
+                borrowed = reader.GetInt32(6),
+                penalty = reader.GetInt32(7)
             });
         }
 
-        return book_list;
+        return usr_list;
+    }
+
+    public void Delete(User user)
+    {
+        using var connection = Database.GetConnection();
+        connection.Open();
+        
+        var command = connection.CreateCommand();
+        command.CommandText =
+        @"
+            DELETE FROM Users WHERE id = $id;
+        ";
+        command.Parameters.AddWithValue("$id", user.id);
+        command.ExecuteNonQuery();
     }
 }
