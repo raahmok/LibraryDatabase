@@ -76,6 +76,8 @@ while (running)
 
         break;
     case SCREEN.ADMIN_MENU:
+        // current_user.username ="kral hoven";
+        // current_user.usr_id =123;
         Console.WriteLine($"Prihlasen - {current_user.username}#{current_user.usr_id} - (admin)");
 
         Console.WriteLine("1 - Prohlizet katalog");
@@ -121,56 +123,29 @@ void login()
     connection.Open();
 
     var command = connection.CreateCommand();
+    //TODO pridat check jestli username existuje
     command.CommandText =
     @"
-        SELECT username FROM Users;
+        SELECT * FROM Users WHERE username = $username;
     ";
+    command.Parameters.AddWithValue("$username", login_username);
 
     using var reader = command.ExecuteReader();
 
-    var db_username = "";
 
     while(reader.Read())
     {
-        if(login_username == reader.GetString(0))
+        if(reader.GetString(2) == login_username &&
+           reader.GetString(4) == login_password)
         {
-            db_username = reader.GetString(0);
-            break;
+            //succesful login
+            current_user.usr_id = reader.GetInt32(1);
+            current_user.username = reader.GetString(2);
+            current_user.admin = reader.GetInt32(5);
+            current_user.borrowed = reader.GetInt32(6);
+            current_user.penalty = reader.GetInt32(7);
         }
     }
-
-    command = connection.CreateCommand();
-    command.CommandText =
-    @"
-        SELECT password FROM Users WHERE username = $username;
-    ";
-    command.Parameters.AddWithValue("$username", db_username);
-
-    using var reader2 = command.ExecuteReader();
-    reader.Read();
-    if(reader.GetString(0) == login_password)
-    {
-        //succesful login
-
-        command = connection.CreateCommand();
-        command.CommandText =
-        @"
-            SELECT username FROM Users;
-        ";
-        
-        using var reader3 = command.ExecuteReader();
-        reader.Read();
-        current_user = new User
-        {
-            id = reader.GetInt32(0),
-            usr_id = reader.GetInt32(1),
-            username = reader.GetString(2),
-            email = reader.GetString(3),
-            password = reader.GetString(4),
-            admin = reader.GetInt32(5)
-        };
-    }
-
 
     if(current_user.admin == 1)
     {
@@ -218,10 +193,10 @@ void listUsers()
 {
     var users = usermanager.GetAll();
 
-    Console.WriteLine("\nItems: (id, username, email, password, admin)");
+    Console.WriteLine("Users: (usr_id, username, email, password, admin, borrowed_books, penalty)");
 
     foreach (var u in users)
     {
-        Console.WriteLine($"{u.id}: {u.username}, {u.email}, {u.password}, {u.admin}");
+        Console.WriteLine($"{u.usr_id}: {u.username}, {u.email}, {u.password}, {u.admin}, {u.borrowed}, {u.penalty}");
     }
 }

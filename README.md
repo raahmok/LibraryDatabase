@@ -4,6 +4,7 @@ knihovna visco
 
 TODO:
     -dodelat readme
+    -input handling proti errorum
     -prilaseni a ucty
     -book a book manager setup
     -vyhledavani knih
