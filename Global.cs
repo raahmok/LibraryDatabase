@@ -1,9 +1,9 @@
 namespace DB;
 
-public enum SCREEN
+
+enum SCREEN
 {
     LOGIN,
     READ_MENU,
-    ADMIN_MENU,
-    BOOK_SEARCH
-}
+    ADMIN_MENU
+};

@@ -8,49 +8,40 @@ var random = new Random();
 var menu  = new Menu();
 
 
+var screen_num = SCREEN.LOGIN;
+
+
+Console.WriteLine("|################################|");
+Console.WriteLine("|##### HONZIKOVA | KNIHOVNA #####|");
+Console.WriteLine("|################################|");
+
+
 while (true)
 {
-
-    menu.init();
-    Console.WriteLine("\n=== MENU ===");
-    Console.WriteLine("4 - Add User");
-    Console.WriteLine("5 - Login");
-    Console.WriteLine("6 - List Users");
-    Console.WriteLine("0 - Exit");
-
-    Console.Write("Choice: ");
-    string? choice = Console.ReadLine();
-
-    switch (choice)
+    switch(screen_num)
     {
-        case "1":
+    case SCREEN.LOGIN:
+        Console.WriteLine("Vitejte!");
+        Console.WriteLine("1 - Prihlasit se");
+        Console.WriteLine("2 - pridat uzivatele");
+        Console.WriteLine("3 - zobrazit uzivatele");
+        Console.WriteLine("0 - Odejit");
+
+        switch(Console.ReadLine())
+            {
+            case "2":
+                addUser();
+                break;
+
+            case "3":
+            listUsers();
             break;
-
-        case "2":
-
-            break;
-
-        case "3":
-
-            break;
-
-        case "4":
-
-            break;
-
-        case "5":
-            break;
-
-        case "6":
-
-            break;
-
-        case "0":
-            return;
-
-        default:
-            Console.WriteLine("Invalid option.");
-            break;
+            }
+        break;
+    case SCREEN.READ_MENU:
+        break;
+    case SCREEN.ADMIN_MENU:
+        break;
     }
 }
 

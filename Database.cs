@@ -45,7 +45,7 @@ public static class Database
             borrow_date DATE,
             return_date DATE,
             return_deadline DATE,
-            FOREIGN KEY (book_id) REFERENCES Books (Book_Id),
+            FOREIGN KEY (book_id) REFERENCES Books (id),
             FOREIGN KEY (member_id) REFERENCES Users (id)
             )
         ";

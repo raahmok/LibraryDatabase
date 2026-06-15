@@ -40,3 +40,4 @@ C:\Users\tylus\Documents\Coding\SSPS\LibraryDatabase\obj\Debug\net10.0\refint\Li
 C:\Users\tylus\Documents\Coding\SSPS\LibraryDatabase\obj\Debug\net10.0\LibraryDatabase.pdb
 C:\Users\tylus\Documents\Coding\SSPS\LibraryDatabase\obj\Debug\net10.0\LibraryDatabase.genruntimeconfig.cache
 C:\Users\tylus\Documents\Coding\SSPS\LibraryDatabase\obj\Debug\net10.0\ref\LibraryDatabase.dll
+C:\Users\tylus\Documents\Coding\SSPS\LibraryDatabase\obj\Debug\net10.0\LibraryDatabase.sourcelink.json
