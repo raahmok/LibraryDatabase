@@ -376,26 +376,8 @@ void ResetDB()
 void loanBook()
 {
     Console.WriteLine("Zadejte isbn knihy kterou si prejete pujcit:");
-    int loan_isbn =int.Parse(Console.ReadLine());
-
-
-    // using var connection = Database.GetConnection();
-    // connection.Open();
-
-    // var loan = connection.CreateCommand();
-    // loan.CommandText =
-    // @"
-    //     SELECT id FROM Books WHERE isbn = $isbn;
-    // ";
-
-    // loan.Parameters.AddWithValue("$isbn", loan_isbn);
-
-    // using var reader = loan.ExecuteReader();
-    // reader.Read();
-    // var book_id = reader.GetInt32(0);
-    //Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd"));
-
-    //borrowmanager.Add(book_id, current_user.id, DateTime.Now.ToString("yyyy-MM-dd"),  DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"));
+    string loan_isbn = Console.ReadLine();
+    
     borrowmanager.Loan(loan_isbn, current_user.id, DateTime.Now.ToString("yyyy-MM-dd"),  DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"));
 }
 
@@ -407,27 +389,8 @@ void returnBook()
 
     using var connection = Database.GetConnection();
     connection.Open();
-    var command = connection.CreateCommand();
-    command.CommandText =
-    @"
-        SELECT id FROM Books WHERE isbn = $isbn;
-    ";
-    command.Parameters.AddWithValue("$isbn", loan_isbn);
-    using var reader = command.ExecuteReader();
-    reader.Read();
-    var book_id = reader.GetInt32(0);
 
-    command = connection.CreateCommand();
-    command.CommandText =
-    @"
-        SELECT id FROM Borrowed WHERE book_id = $book_id AND user_id = $user_id;
-    ";
-    command.Parameters.AddWithValue("$book_id", book_id);
-    command.Parameters.AddWithValue("$user_id", current_user.id);
-    using var reader2 = command.ExecuteReader();
-    reader2.Read();
-
-    borrowmanager.Return(book_id, current_user.id, reader.GetInt32(0), DateTime.Now.ToString("yyyy-MM-dd"));
+    borrowmanager.Return(loan_isbn, current_user.id, DateTime.Now.ToString("yyyy-MM-dd"));
 }
 
 void listMyLoans()

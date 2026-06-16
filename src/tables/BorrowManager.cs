@@ -5,11 +5,22 @@ namespace DB;
 
 public class BorrowManager
 {
-    public void Loan(int b_id, int u_id, string b_date, string r_date)
+    public void Loan(string isbn, int u_id, string b_date, string r_date)
     {
-
         using var connection = Database.GetConnection();
         connection.Open();
+
+        var get_id = connection.CreateCommand();
+        get_id.CommandText =
+        @"
+            SELECT id FROM Books WHERE isbn = $isbn;
+        ";
+
+        get_id.Parameters.AddWithValue("$isbn", isbn);
+
+        var b_id = Convert.ToInt32(get_id.ExecuteScalar());
+
+
 
         var command = connection.CreateCommand();
         command.CommandText =
@@ -34,11 +45,34 @@ public class BorrowManager
         command.ExecuteNonQuery();
     }
 
-    public void Return( int b_id, int u_id,int borrow_id, string r_date)
+    public void Return( string isbn, int u_id, string return_date)
     {
 
         using var connection = Database.GetConnection();
         connection.Open();
+
+        var get_id = connection.CreateCommand();
+        get_id.CommandText =
+        @"
+            SELECT id FROM Books WHERE isbn = $isbn;
+        ";
+
+        get_id.Parameters.AddWithValue("$isbn", isbn);
+
+        var b_id = Convert.ToInt32(get_id.ExecuteScalar());
+
+        
+        var get_borrow_id = connection.CreateCommand();
+        get_borrow_id.CommandText =
+        @"
+            SELECT id FROM Borrowed WHERE book_id = $book_id AND user_id = $user_id;
+        ";
+        get_borrow_id.Parameters.AddWithValue("$book_id", b_id);
+        get_borrow_id.Parameters.AddWithValue("$user_id", u_id);
+        
+        var borrow_id = Convert.ToInt32(get_id.ExecuteScalar());
+
+
 
         var command = connection.CreateCommand();
         command.CommandText =
@@ -49,17 +83,17 @@ public class BorrowManager
 
             UPDATE Books
             SET available = available + 1
-            WHERE $b_id
+            WHERE id = $b_id;
 
             UPDATE Users
-            SET borrowed = borrowed - 1
-            WHERE $u_id;
+            SET borrowed_books = borrowed_books - 1
+            WHERE id = $u_id;
         ";
 
         command.Parameters.AddWithValue("$b_id", b_id);
         command.Parameters.AddWithValue("$borrow_id", borrow_id);
         command.Parameters.AddWithValue("$u_id", u_id);
-        command.Parameters.AddWithValue("$r_date", r_date);
+        command.Parameters.AddWithValue("$r_date", return_date);
         command.ExecuteNonQuery();
     }
 
