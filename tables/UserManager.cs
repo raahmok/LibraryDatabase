@@ -29,7 +29,7 @@ public class UserManager
 
     public List<User> GetAll()
     {
-        var usr_list = new List<User>();
+        var list = new List<User>();
 
         using var connection = Database.GetConnection();
         connection.Open();
@@ -41,7 +41,7 @@ public class UserManager
 
         while (reader.Read())
         {
-            usr_list.Add(new User
+            list.Add(new User
             {
                 id = reader.GetInt32(0),
                 usr_id = reader.GetInt32(1),
@@ -54,7 +54,7 @@ public class UserManager
             });
         }
 
-        return usr_list;
+        return list;
     }
 
     public void Delete(User user)
@@ -68,6 +68,20 @@ public class UserManager
             DELETE FROM Users WHERE id = $id;
         ";
         command.Parameters.AddWithValue("$id", user.id);
+        command.ExecuteNonQuery();
+    }
+
+    public void Delete(int usr_id)
+    {
+        using var connection = Database.GetConnection();
+        connection.Open();
+        
+        var command = connection.CreateCommand();
+        command.CommandText =
+        @"
+            DELETE FROM Users WHERE usr_id = $usr_id;
+        ";
+        command.Parameters.AddWithValue("$id", usr_id);
         command.ExecuteNonQuery();
     }
 }

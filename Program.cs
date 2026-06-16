@@ -1,8 +1,11 @@
-﻿using DB;
+﻿using System.Data.Common;
+using System.Data.Entity.Core.Common.EntitySql;
+using DB;
 
 Database.Initialize();
 
 var usermanager = new UserManager();
+var bookmanager = new BookManager();
 var current_user = new User();
 var random = new Random();
 var menu  = new Menu();
@@ -25,8 +28,7 @@ while (running)
     case SCREEN.LOGIN:
         Console.WriteLine("Vitejte!");
         Console.WriteLine("1 - Prihlasit se");
-        Console.WriteLine("2 - pridat uzivatele");
-        Console.WriteLine("3 - zobrazit uzivatele");
+        Console.WriteLine("2 - Registrace");
         Console.WriteLine("0 - Odejit");
 
         switch(Console.ReadLine())
@@ -37,81 +39,103 @@ while (running)
         case "2":
             addUser();
             break;
+        case "0":
+            running = false;
+            break;
+        }
+        break;
+    case SCREEN.MENU:
+        if(current_user.admin == 1) Console.WriteLine($"Prihlasen - {current_user.username}#{current_user.usr_id} - (admin)");
+        else Console.WriteLine($"Prihlasen - {current_user.username}#{current_user.usr_id}");
+        Console.WriteLine($"#######################################");
+        Console.WriteLine("1 - Prohlizet katalog");
+        Console.WriteLine("2 - Vypujcit knihu");
+        Console.WriteLine("3 - Vratit knihu");
+        Console.WriteLine("4 - Odhlasit");
+        Console.WriteLine("5 - Smazat ucet");
+        if(current_user.admin == 1) Console.WriteLine("6 - Pokrocile");
+        Console.WriteLine("0 - Odejit");
+
+        switch(Console.ReadLine())
+        {
+        case "1":
+            listBooks();
+            break;
+        case "2":
+            break;
         case "3":
+            break;
+        case "4":
+            current_user = new User();
+            screen_num = SCREEN.LOGIN;
+            break;
+        case "5":
+            Console.WriteLine("Opravdu skutecne si prejete trvale odstranit svuj ucet? (y/n)");
+            if(Console.ReadLine() == "y")
+            {
+                usermanager.Delete(current_user);
+                screen_num = SCREEN.LOGIN;
+            }
+            break;
+        case "6":
+            Console.WriteLine("Zadejte pristupove heslo:");
+            if(Console.ReadLine() == "chlebasmaslem" && current_user.admin == 1)
+            {
+                screen_num = SCREEN.ADMIN_MENU;
+            }
+            break;
+        case "0":
+            running = false;
+            break;
+        }
+
+        break;
+
+    case SCREEN.ADMIN_MENU:
+        Console.WriteLine($"Pokrocile moznosti");
+        Console.WriteLine($"##################");
+        Console.WriteLine("1 - Vypsat uzivatele");
+        Console.WriteLine("2 - Pridat uzivatele");
+        Console.WriteLine("3 - Smazat uzivatele");
+        Console.WriteLine("4 - Prohlizet katalog");
+        Console.WriteLine("5 - Pridat knihu");
+        Console.WriteLine("6 - Smazat knihu");
+        Console.WriteLine("7 - Aktivni vypujcky");
+        Console.WriteLine("8 - Historie vypujcky");
+        Console.WriteLine("9 - Zpet");
+        Console.WriteLine("0 - Odejit");
+
+        switch(Console.ReadLine())
+        {
+        case "1":
             listUsers();
             break;
-        default:
-            running = false;
-            break;
-        }
-        break;
-    case SCREEN.READ_MENU:
-        Console.WriteLine($"Prihlasen - {current_user.username}#{current_user.usr_id}");
-        Console.WriteLine(current_user.username);
-        Console.WriteLine("1 - Prohlizet katalog");
-        Console.WriteLine("2 - Vypujcit knihu");
-        Console.WriteLine("3 - Vratit knihu");
-        Console.WriteLine("5 - Odhlasit");
-        Console.WriteLine("6 - Smazat ucet");
-        Console.WriteLine("0 - Odejit");
-
-        switch(Console.ReadLine())
-        {
-        case "1":
-            break;
         case "2":
+            addUser();
             break;
         case "3":
-            break;
-        case "4":
-            break;
-        case "5":
-            current_user = new User();
-            screen_num = SCREEN.LOGIN;
-            break;
-        case "6":
             deleteUser();
             break;
-        default:
+        case "4":
+            listBooks();
+            break;
+        case "5":
+            //addBook();
+            break;
+        case "6":
+            //deleteBook();
+            break;
+        case "7":
+            break;
+        case "8":
+            break;
+        case "9":
+            screen_num = SCREEN.MENU;
+            break;
+        case "0":
             running = false;
             break;
         }
-
-        break;
-    case SCREEN.ADMIN_MENU:
-        // current_user.username ="kral hoven";
-        // current_user.usr_id =123;
-        Console.WriteLine($"Prihlasen - {current_user.username}#{current_user.usr_id} - (admin)");
-
-        Console.WriteLine("1 - Prohlizet katalog");
-        Console.WriteLine("2 - Vypujcit knihu");
-        Console.WriteLine("3 - Vratit knihu");
-        Console.WriteLine("5 - Odhlasit");
-        Console.WriteLine("6 - Smazat ucet");
-        Console.WriteLine("0 - Odejit");
-
-        switch(Console.ReadLine())
-        {
-        case "1":
-            break;
-        case "2":
-            break;
-        case "3":
-            break;
-        case "4":
-            break;
-        case "5":
-            current_user = new User();
-            screen_num = SCREEN.LOGIN;
-            break;
-        case "6":
-            deleteUser();
-            break;
-        default:
-            running = false;
-            break;
-        }
-
         break;
     }
 }
@@ -153,14 +177,8 @@ void login()
             current_user.admin = reader.GetInt32(5);
             current_user.borrowed = reader.GetInt32(6);
             current_user.penalty = reader.GetInt32(7);
-            if(current_user.admin == 1)
-            {
-                screen_num = SCREEN.ADMIN_MENU;
-            }
-            else
-            {
-                screen_num = SCREEN.READ_MENU;
-            }
+
+            screen_num = SCREEN.MENU;
 
             break;
         }
@@ -207,12 +225,9 @@ void addUser()
 
 void deleteUser()
 {
-    Console.WriteLine("Opravdu skutecne si prejete trvale odstranit svuj ucet? (y/n)");
-    if(Console.ReadLine() == "y")
-    {
-        usermanager.Delete(current_user);
-        screen_num = SCREEN.LOGIN;
-    }
+    Console.WriteLine("zadejte usr_id uzivatele ktery bude odstranen:");
+    var delete_id = int.Parse(Console.ReadLine());
+    usermanager.Delete(delete_id);
 }
 
 void listUsers()
@@ -224,5 +239,21 @@ void listUsers()
     foreach (var u in users)
     {
         Console.WriteLine($"{u.usr_id}: {u.username}, {u.email}, {u.password}, {u.admin}, {u.borrowed}, {u.penalty}");
+    }
+}
+
+void listBooks()
+{
+    var books = bookmanager.GetAll();
+
+    Console.WriteLine("##################################");
+    Console.WriteLine("########## KATALOG KNIH ##########");
+    Console.WriteLine("##################################");
+    Console.WriteLine("");
+    Console.WriteLine("| isbn | title | author | year of release | genre | copies | available copies");
+
+    foreach (var b in books)
+    {
+        Console.WriteLine($"| {b.isbn} | {b.title} | {b.author} | {b.year} | {b.genre} | {b.copies} | {b.available} |");
     }
 }

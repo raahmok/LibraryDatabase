@@ -3,61 +3,63 @@ using DB;
 
 namespace DB;
 
-public class UserManager
+public class BookManager
 {
-    public void Add(User user)
+    public void Add(Book book)
     {
-        using var connection = Database.GetConnection();
-        connection.Open();
+        //npotrebuju pridavat knizky asi
 
-        var command = connection.CreateCommand();
-        command.CommandText =
-        @"
-            INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
-            VALUES ($usr_id, $username, $email, $password, $admin, $borrowed, $penalty);
-        ";
+        // using var connection = Database.GetConnection();
+        // connection.Open();
 
-        command.Parameters.AddWithValue("$usr_id", user.usr_id);
-        command.Parameters.AddWithValue("$username", user.username);
-        command.Parameters.AddWithValue("$email", user.email);
-        command.Parameters.AddWithValue("$password", user.password);
-        command.Parameters.AddWithValue("$admin", user.admin);
-        command.Parameters.AddWithValue("$borrowed", user.borrowed);
-        command.Parameters.AddWithValue("$penalty", user.penalty);
-        command.ExecuteNonQuery();
+        // var command = connection.CreateCommand();
+        // command.CommandText =
+        // @"
+        //     INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
+        //     VALUES ($usr_id, $username, $email, $password, $admin, $borrowed, $penalty);
+        // ";
+
+        // command.Parameters.AddWithValue("$usr_id", user.usr_id);
+        // command.Parameters.AddWithValue("$username", user.username);
+        // command.Parameters.AddWithValue("$email", user.email);
+        // command.Parameters.AddWithValue("$password", user.password);
+        // command.Parameters.AddWithValue("$admin", user.admin);
+        // command.Parameters.AddWithValue("$borrowed", user.borrowed);
+        // command.Parameters.AddWithValue("$penalty", user.penalty);
+        // command.ExecuteNonQuery();
     }
 
-    public List<User> GetAll()
+    public List<Book> GetAll()
     {
-        var usr_list = new List<User>();
+        var list = new List<Book>();
 
         using var connection = Database.GetConnection();
         connection.Open();
 
         var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM Users";
+        command.CommandText = "SELECT * FROM Books";
 
         using var reader = command.ExecuteReader();
 
         while (reader.Read())
         {
-            usr_list.Add(new User
+            list.Add(new Book
             {
                 id = reader.GetInt32(0),
-                usr_id = reader.GetInt32(1),
-                username = reader.GetString(2),
-                email = reader.GetString(3),
-                password = reader.GetString(4),
-                admin = reader.GetInt32(5),
-                borrowed = reader.GetInt32(6),
-                penalty = reader.GetInt32(7)
+                isbn = reader.GetString(1),
+                title = reader.GetString(2),
+                author = reader.GetString(3),
+                year = reader.GetInt32(4),
+                genre = reader.GetString(5),
+                copies = reader.GetInt32(6),
+                available = reader.GetInt32(7)
             });
         }
 
-        return usr_list;
+        return list;
     }
 
-    public void Delete(User user)
+    public void Delete(Book book)
     {
         using var connection = Database.GetConnection();
         connection.Open();
@@ -65,9 +67,9 @@ public class UserManager
         var command = connection.CreateCommand();
         command.CommandText =
         @"
-            DELETE FROM Users WHERE id = $id;
+            DELETE FROM Books WHERE id = $id;
         ";
-        command.Parameters.AddWithValue("$id", user.id);
+        command.Parameters.AddWithValue("$id", book.id);
         command.ExecuteNonQuery();
     }
 }

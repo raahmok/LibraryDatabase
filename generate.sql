@@ -1,5 +1,9 @@
 
+DELETE FROM Users;
+Delete FROM Books;
+
 INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty) VALUES
+(420, "admin", "admin@supermail.ai", "admin", 1, 0, 0),
 (123, "karel", "karel@seznam.cz", "heslo", 1, 0, 0),
 (345, "pepa", "pepa_novak@gmail.com", "heslo", 0, 0, 0),
 (456, "petr", "petr.sasek.cz", "heslo", 0, 0, 0);

@@ -15,6 +15,6 @@ enum USER_COL
 enum SCREEN
 {
     LOGIN,
-    READ_MENU,
+    MENU,
     ADMIN_MENU
 };

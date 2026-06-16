@@ -59,7 +59,7 @@ CREATE TABLE Books (
     available INTEGER NOT NULL CHECK (available >= 0 AND available <= copies)
 );
 
-MILUJU CHAT GPT;
+/*MILUJU CHAT GPT*/
 
 INSERT INTO Books (id, isbn, title, author, year, genre, copies, available) VALUES
 (1, '9780743273565', 'The Great Gatsby', 'F. Scott Fitzgerald', 1925, 'Classic', 85, 42),
