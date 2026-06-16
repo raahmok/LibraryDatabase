@@ -1,5 +1,9 @@
 # Simulace databáze knihovny
-CLI nastroj pro manipulaci s databázi virtualní knihovny
+CLI nastroj pro manipulaci s databázi virtualní 
+
+## Setup
+- Vyzadovana .NET verze 10...
+- dotnet run
 
 ## Pouzite jazyky a frameworky
 - C# => base aplikace
