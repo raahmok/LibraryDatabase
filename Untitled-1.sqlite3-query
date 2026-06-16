@@ -1,4 +1,4 @@
--- database: ./database.db
+-- database: ./sql/database.db
 
 
 
@@ -97,3 +97,32 @@ INSERT INTO Books (id, isbn, title, author, year, genre, copies, available) VALU
 
 
 DROP TABLE Borrowed;
+
+
+
+select id from Books where isbn = 9780061120084;
+
+
+INSERT INTO Borrowed (book_id, user_id, borrow_date, return_deadline)
+VALUES (1, 1, "kveten", "zari");
+
+UPDATE Books
+SET available = available - 1
+WHERE 1
+AND available > 0;
+
+UPDATE Users
+SET borrowed = borrowed + 1
+WHERE $u_id;
+
+
+
+
+UPDATE Books
+SET available = available - 1
+WHERE id = 1
+AND available > 0;
+
+UPDATE Users
+SET borrowed_books = borrowed_books + 1
+WHERE id = 1;

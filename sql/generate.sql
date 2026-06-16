@@ -3,6 +3,7 @@ DROP TABLE Books;
 DROP TABLE Users;
 DROP TABLE Borrowed;
 
+
 CREATE TABLE IF NOT EXISTS Books (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     isbn VARCHAR(13) NOT NULL UNIQUE,
@@ -17,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Books (
 
 CREATE TABLE IF NOT EXISTS Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    usr_id INTEGER NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL UNIQUE,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
@@ -28,16 +29,16 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Borrowed (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    book_id INTEGER,
-    member_id INTEGER,
-    borrow_date DATE,
-    return_date DATE,
-    return_deadline DATE,
-    FOREIGN KEY (book_id) REFERENCES Books (id),
-    FOREIGN KEY (member_id) REFERENCES Users (id)
+    book_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    borrow_date TEXT,
+    return_date TEXT,
+    return_deadline TEXT
 );
 
-INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty) VALUES
+
+
+INSERT INTO Users (user_id, username, email, password, admin, borrowed_books, penalty) VALUES
 (420, "admin", "admin@supermail.ai", "admin", 1, 0, 0),
 (123, "karel", "karel@seznam.cz", "heslo", 1, 0, 0),
 (345, "pepa", "pepa_novak@gmail.com", "heslo", 0, 0, 0),

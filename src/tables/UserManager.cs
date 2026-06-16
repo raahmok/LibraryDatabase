@@ -13,11 +13,11 @@ public class UserManager
         var command = connection.CreateCommand();
         command.CommandText =
         @"
-            INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
-            VALUES ($usr_id, $username, $email, $password, $admin, $borrowed, $penalty);
+            INSERT INTO Users (user_id, username, email, password, admin, borrowed_books, penalty)
+            VALUES ($user_id, $username, $email, $password, $admin, $borrowed, $penalty);
         ";
 
-        command.Parameters.AddWithValue("$usr_id", user.usr_id);
+        command.Parameters.AddWithValue("$user_id", user.user_id);
         command.Parameters.AddWithValue("$username", user.username);
         command.Parameters.AddWithValue("$email", user.email);
         command.Parameters.AddWithValue("$password", user.password);
@@ -44,7 +44,7 @@ public class UserManager
             list.Add(new User
             {
                 id = reader.GetInt32(0),
-                usr_id = reader.GetInt32(1),
+                user_id = reader.GetInt32(1),
                 username = reader.GetString(2),
                 email = reader.GetString(3),
                 password = reader.GetString(4),
@@ -71,7 +71,7 @@ public class UserManager
         command.ExecuteNonQuery();
     }
 
-    public void Delete(int usr_id)
+    public void Delete(int user_id)
     {
         using var connection = Database.GetConnection();
         connection.Open();
@@ -79,9 +79,9 @@ public class UserManager
         var command = connection.CreateCommand();
         command.CommandText =
         @"
-            DELETE FROM Users WHERE usr_id = $usr_id;
+            DELETE FROM Users WHERE user_id = $user_id;
         ";
-        command.Parameters.AddWithValue("$id", usr_id);
+        command.Parameters.AddWithValue("$id", user_id);
         command.ExecuteNonQuery();
     }
 }

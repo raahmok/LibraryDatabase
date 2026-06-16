@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Books (
 
 CREATE TABLE IF NOT EXISTS Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    usr_id INTEGER NOT NULL UNIQUE,
+    user_id INTEGER NOT NULL UNIQUE,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
@@ -24,11 +24,9 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Borrowed (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    book_id INTEGER,
-    member_id INTEGER,
-    borrow_date DATE,
-    return_date DATE,
-    return_deadline DATE,
-    FOREIGN KEY (book_id) REFERENCES Books (id),
-    FOREIGN KEY (member_id) REFERENCES Users (id)
+    book_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    borrow_date TEXT,
+    return_date TEXT,
+    return_deadline TEXT
 );
