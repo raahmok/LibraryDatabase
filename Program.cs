@@ -94,6 +94,7 @@ while (running)
     case SCREEN.ADMIN_MENU:
         Console.WriteLine($"Pokrocile moznosti");
         Console.WriteLine($"##################");
+        Console.WriteLine("C - Zadat prikaz");
         Console.WriteLine("1 - Vypsat uzivatele");
         Console.WriteLine("2 - Pridat uzivatele");
         Console.WriteLine("3 - Smazat uzivatele");
@@ -107,6 +108,9 @@ while (running)
 
         switch(Console.ReadLine())
         {
+        case "C":
+            customCommand();
+            break;
         case "1":
             listUsers();
             break;
@@ -290,4 +294,17 @@ void deleteBook()
     Console.WriteLine("zadejte isbn knihy ktera bude odstranena:");
     var delete_id = Console.ReadLine();
     bookmanager.Delete(delete_id);
+}
+
+void customCommand()
+{
+    Console.WriteLine("Zadejte prikaz ve spravnem formatu SQL:");
+    var sql = Console.ReadLine();
+
+    using var connection = Database.GetConnection();
+    connection.Open();
+    
+    var command = connection.CreateCommand();
+    command.CommandText = sql;
+    command.ExecuteNonQuery();
 }
