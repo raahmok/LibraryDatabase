@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Books (
 CREATE TABLE IF NOT EXISTS Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     usr_id INTEGER NOT NULL UNIQUE,
-    username TEXT NOT NULL,
+    username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
     admin INTEGER NOT NULL,
@@ -31,4 +31,4 @@ CREATE TABLE IF NOT EXISTS Borrowed (
     return_deadline DATE,
     FOREIGN KEY (book_id) REFERENCES Books (id),
     FOREIGN KEY (member_id) REFERENCES Users (id)
-)
+);

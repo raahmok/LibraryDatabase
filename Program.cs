@@ -95,6 +95,7 @@ while (running)
         Console.WriteLine($"Pokrocile moznosti");
         Console.WriteLine($"##################");
         Console.WriteLine("C - Zadat prikaz");
+        Console.WriteLine("R - Resetovat databazi");
         Console.WriteLine("1 - Vypsat uzivatele");
         Console.WriteLine("2 - Pridat uzivatele");
         Console.WriteLine("3 - Smazat uzivatele");
@@ -110,6 +111,9 @@ while (running)
         {
         case "C":
             customCommand();
+            break;
+        case "R":
+            ResetDB();
             break;
         case "1":
             listUsers();
@@ -305,6 +309,24 @@ void customCommand()
     connection.Open();
     
     var command = connection.CreateCommand();
+    command.CommandText = sql;
+    command.ExecuteNonQuery();
+}
+
+void ResetDB()
+{
+    Console.WriteLine("Skutecne???");
+    if(Console.ReadLine() != "y") return;
+    Console.WriteLine("Vopravdu???");
+    if(Console.ReadLine() != "y") return;
+    Console.WriteLine("Fakt jo???");
+    if(Console.ReadLine() != "y") return;
+    Console.WriteLine("oukej");
+    using var connection = Database.GetConnection();
+    connection.Open();
+    var command = connection.CreateCommand();
+    var sql_path = "generate.sql";
+    var sql = File.ReadAllText(sql_path);
     command.CommandText = sql;
     command.ExecuteNonQuery();
 }
