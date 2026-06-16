@@ -7,26 +7,25 @@ public class BookManager
 {
     public void Add(Book book)
     {
-        //npotrebuju pridavat knizky asi
 
-        // using var connection = Database.GetConnection();
-        // connection.Open();
+        using var connection = Database.GetConnection();
+        connection.Open();
 
-        // var command = connection.CreateCommand();
-        // command.CommandText =
-        // @"
-        //     INSERT INTO Users (usr_id, username, email, password, admin, borrowed_books, penalty)
-        //     VALUES ($usr_id, $username, $email, $password, $admin, $borrowed, $penalty);
-        // ";
+        var command = connection.CreateCommand();
+        command.CommandText =
+        @"
+            INSERT INTO Books (isbn, title, author, year, genre, copies, available)
+            VALUES ($isbn, $title, $author, $year, $genre, $copies, $available);
+        ";
 
-        // command.Parameters.AddWithValue("$usr_id", user.usr_id);
-        // command.Parameters.AddWithValue("$username", user.username);
-        // command.Parameters.AddWithValue("$email", user.email);
-        // command.Parameters.AddWithValue("$password", user.password);
-        // command.Parameters.AddWithValue("$admin", user.admin);
-        // command.Parameters.AddWithValue("$borrowed", user.borrowed);
-        // command.Parameters.AddWithValue("$penalty", user.penalty);
-        // command.ExecuteNonQuery();
+        command.Parameters.AddWithValue("$isbn", book.isbn);
+        command.Parameters.AddWithValue("$title", book.title);
+        command.Parameters.AddWithValue("$author", book.author);
+        command.Parameters.AddWithValue("$year", book.year);
+        command.Parameters.AddWithValue("$genre", book.genre);
+        command.Parameters.AddWithValue("$copies", book.copies);
+        command.Parameters.AddWithValue("$available", book.available);
+        command.ExecuteNonQuery();
     }
 
     public List<Book> GetAll()
@@ -59,7 +58,7 @@ public class BookManager
         return list;
     }
 
-    public void Delete(Book book)
+    public void Delete(string isbn)
     {
         using var connection = Database.GetConnection();
         connection.Open();
@@ -67,9 +66,9 @@ public class BookManager
         var command = connection.CreateCommand();
         command.CommandText =
         @"
-            DELETE FROM Books WHERE id = $id;
+            DELETE FROM Books WHERE isbn = $isbn;
         ";
-        command.Parameters.AddWithValue("$id", book.id);
+        command.Parameters.AddWithValue("$isbn", isbn);
         command.ExecuteNonQuery();
     }
 }

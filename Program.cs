@@ -120,10 +120,10 @@ while (running)
             listBooks();
             break;
         case "5":
-            //addBook();
+            addBook();
             break;
         case "6":
-            //deleteBook();
+            deleteBook();
             break;
         case "7":
             break;
@@ -189,6 +189,18 @@ void login()
     }
 }
 
+void listUsers()
+{
+    var users = usermanager.GetAll();
+
+    Console.WriteLine("Users: (usr_id, username, email, password, admin, borrowed_books, penalty)");
+
+    foreach (var u in users)
+    {
+        Console.WriteLine($"{u.usr_id}: {u.username}, {u.email}, {u.password}, {u.admin}, {u.borrowed}, {u.penalty}");
+    }
+}
+
 void addUser()
 {
     var user = new User();
@@ -230,18 +242,6 @@ void deleteUser()
     usermanager.Delete(delete_id);
 }
 
-void listUsers()
-{
-    var users = usermanager.GetAll();
-
-    Console.WriteLine("Users: (usr_id, username, email, password, admin, borrowed_books, penalty)");
-
-    foreach (var u in users)
-    {
-        Console.WriteLine($"{u.usr_id}: {u.username}, {u.email}, {u.password}, {u.admin}, {u.borrowed}, {u.penalty}");
-    }
-}
-
 void listBooks()
 {
     var books = bookmanager.GetAll();
@@ -256,4 +256,38 @@ void listBooks()
     {
         Console.WriteLine($"| {b.isbn} | {b.title} | {b.author} | {b.year} | {b.genre} | {b.copies} | {b.available} |");
     }
+}
+
+void addBook()
+{
+    var book = new Book();
+    Console.Write("Enter title: ");
+    book.title = Console.ReadLine();
+    Console.Write("Enter Author: ");
+    book.author = Console.ReadLine();
+    Console.Write("Enter year of release: ");
+    book.year = int.Parse(Console.ReadLine());
+    Console.Write("Enter genre: ");
+    book.genre = Console.ReadLine();
+    Console.Write("Enter number of copies: ");
+    book.copies = int.Parse(Console.ReadLine());
+    book.available = book.copies;
+
+    string rand_isbn = "";
+    
+    for(int i = 0; i < 13; i++)
+    {
+        rand_isbn += random.Next(-1, 10);
+    }
+
+    book.isbn = rand_isbn;
+
+    bookmanager.Add(book);
+}
+
+void deleteBook()
+{
+    Console.WriteLine("zadejte isbn knihy ktera bude odstranena:");
+    var delete_id = Console.ReadLine();
+    bookmanager.Delete(delete_id);
 }
